@@ -29,7 +29,7 @@ const Sidebar = () => {
               <AvatarImage src="https://github.com/drguthals.png" alt="@drguthals" />
               <AvatarFallback>DR G</AvatarFallback>
           </Avatar>
-          <span>Hey, I'm Sarah</span>
+          <span>Hey, Im Sarah</span>
         </Link>
       </div>
       <div className="flex-1">
