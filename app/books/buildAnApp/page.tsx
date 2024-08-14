@@ -14,6 +14,7 @@ export default function BuildAnApp () {
                 Create a simple, interactive game you can share with your friends!
                 Adults all over the world turn to For Dummies books for clear instruction with a sense of humor; the Dummies Junior books bring that same 'learning is fun' attitude to kids, with projects designed specifically for a kid's interests, needs, and skill level. Building a Mobile App gets kids coding quickly, with fun projects they'll be happy to show off!"
             page="https://a.co/d/dyA8T2t"
+            valid={true}
         />
     )
 }

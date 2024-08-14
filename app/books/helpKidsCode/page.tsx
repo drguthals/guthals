@@ -16,6 +16,7 @@ export default function HelpKidsCode () {
                 Apply math skills to coding
                 If you’re a parent, teacher, or mentor eager to help 8 to 14 year olds learn to speak a coding language like a mini pro, this book makes it possible!  "
             page="https://a.co/d/hL3heE3"
+            valid={true}
         />
     )
 }

@@ -13,6 +13,7 @@ export default function WriteCode () {
                 Know the code – get your hands on a pro coding language and put it to work
                 Make things happen – create a working application you can share with friends"
             page="https://a.co/d/8ID2zN0"
+            valid={false}
         />
     )
 }

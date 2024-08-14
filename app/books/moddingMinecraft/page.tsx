@@ -17,6 +17,7 @@ export default function ModdingMinecraft () {
                 Finishes with a multi-level, multi-player game based on the classic “capture the flag” game
                 With simple and clear instruction that your child can understand, Modding Minecraft is the perfect place for your kid to dig deep and open up a whole new world in their creative play."
             page="https://a.co/d/baxFx7y"
+            valid={false}
         />
     )
 }

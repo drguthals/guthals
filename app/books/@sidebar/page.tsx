@@ -1,19 +1,6 @@
-"use client"
-
-import Link from "next/link"
-import {
-  ScrollText,
-  BookUser,
-  School,
-  BookMarked,
-  TvMinimalPlay,
-} from "lucide-react"
-import { usePathname } from "next/navigation";
-import { cn } from "@/app/_components/utils";
 import Item from "@/app/_components/navigation/item"
 
 export default function Sidebar () {
-    const pathname = usePathname();
     return (
         <nav className="grid items-start px-2 text-sm lg:px-4 border-r h-screen overflow-y-auto">
           <Item 

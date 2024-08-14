@@ -15,6 +15,7 @@ export default function Games () {
                 - Hardware PC or tablet with internet connection running Windows® 7 or higher or Mac with internet connection running Mac OS X® 10.7 or higher
                 - Software Alice a free programming platform that can be downloaded at alice.org."
             page="https://a.co/d/2R4TSdI"
+            valid={false}
         />
     )
 }

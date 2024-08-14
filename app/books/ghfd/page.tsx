@@ -16,6 +16,7 @@ export default function Ghfd () {
                 Use GitHub Skills courses to learn new tricks, for beginners to pros
                 You've learned how to write a little code―now learn how to share it with GitHub."
             page="https://a.co/d/bxLsPpe"
+            valid={true}
         />
     )
 }

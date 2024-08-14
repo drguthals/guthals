@@ -17,6 +17,7 @@ export default function BuildMinecraft () {
                 Introduces basic engineering concepts to kids in a way they can understand
                 Screen time can be as educational as it is fun, and this book shows your child how to approach their favorite game from a new angle to think―and do―outside the box."
             page="https://a.co/d/cTAGJkV"
+            valid={true}
         />
     )
 }

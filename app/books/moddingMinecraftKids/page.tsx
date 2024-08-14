@@ -17,6 +17,7 @@ export default function ModdingMinecraftKids () {
                 Offers next steps you can take if you want to learn even more about modding and coding
                 If you're one of the millions of kids who play Minecraft every day, this hands-on guide gets you up and running fast with modding your favorite game!"
             page="https://a.co/d/dUhKcEx"
+            valid={false}
         />
     )
 }
