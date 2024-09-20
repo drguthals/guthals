@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Content {
+  id          Int     @id @default(autoincrement())
+  key         String  @unique
+  title       String  @unique
+  subtitle    String?
+  description String
+  year        String
+  role        String?
+  exturl      String?
+  image       String?
+  type        Type    @default(BOOK)
+  status      Status  @default(AVAILABLE)
+}
+
+enum Type {
+  BOOK
+  PUB
+  VIDEO
+  COURSE
+  TUTORIAL
+  OTHER
+}
+
+enum Status {
+  AVAILABLE
+  OLD
+}

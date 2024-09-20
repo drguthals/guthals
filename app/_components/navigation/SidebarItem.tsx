@@ -2,8 +2,6 @@
 
 import {
   Card,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/app/_components/ui/card"
@@ -11,7 +9,7 @@ import { cn } from "@/app/_components/utils";
 import Link from "next/link"
 import { usePathname } from "next/navigation";
 
-export default function Item ( {image, title, subtitle, page} : {image : string, title : string, subtitle : string, page: string}) {
+export default function SidebarItem ( { title, page} : {title : string, page: string} ) {
     const pathname = usePathname();
     return (
         <Link

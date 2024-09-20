@@ -14,7 +14,7 @@ If I want to add back in the buy buttons:
 </div>
 */
 
-export default function Content ( {title, year, role, description, page, valid} : {title : string, year : string, role : string, description : string, page: string, valid: boolean}) {
+export default function Content ( {title, year, role, description, exturl, valid} : {title : string, year : string, role : string, description : string, exturl: string, valid: boolean}) {
     return (
         <div className="w-full px-5 pt-9">
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-4xl">
@@ -30,7 +30,7 @@ export default function Content ( {title, year, role, description, page, valid} 
             </div>
             {valid && <div className="flex justify-end">
                 <Button className="w-auto" asChild>
-                    <a href={page} target="_blank"><BookMarked className="mr-2 h-4 w-4" /> Read Now</a>
+                    <a href={exturl} target="_blank"><BookMarked className="mr-2 h-4 w-4" /> Read Now</a>
                 </Button>
             </div>}
         </div>
