@@ -5,9 +5,10 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Content {
+model content {
   id          Int     @id @default(autoincrement())
   key         String  @unique
   title       String  @unique
