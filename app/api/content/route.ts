@@ -2,10 +2,9 @@ import { type NextRequest } from 'next/server'
 import { Type } from '@prisma/client';
 import { helpers } from "@/prisma/helpers";
 
-// Define the allowed enum values
-const allowedTypes = Object.values(Type);
-
 export async function GET (request: NextRequest) {
+  // Define the allowed enum values
+  const allowedTypes = Object.values(Type);
   const searchParams = request.nextUrl.searchParams
   const type = searchParams.get('type')
 
