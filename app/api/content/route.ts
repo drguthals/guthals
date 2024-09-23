@@ -1,7 +1,6 @@
 import { type NextRequest } from 'next/server'
-import { PrismaClient, Type } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Type } from '@prisma/client';
+import { helpers } from "@/prisma/helpers";
 
 // Define the allowed enum values
 const allowedTypes = Object.values(Type);
@@ -16,19 +15,7 @@ export async function GET (request: NextRequest) {
   }
 
   try {
-    const data = await prisma.content.findMany({
-      where: {
-        type: type as Type
-      },
-      select: {
-        id: true,
-        key: true,
-        title: true,
-        subtitle: true,
-        exturl: true,
-        image: true,
-      }
-    });
+    const data = await helpers.getContentByType(type as Type);
     return Response.json(data);
   } catch (error) {
     return Response.json({ error: 'Failed to fetch data' }, { status: 500 });
