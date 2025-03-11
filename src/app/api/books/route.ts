@@ -6,6 +6,7 @@ export async function GET() {
         const books = await prisma.book.findMany();
         return NextResponse.json(books);
     } catch (error) {
+        console.error('Error details:', error);
         return NextResponse.json({ error: 'Error fetching books' }, { status: 500 });
     }
 }

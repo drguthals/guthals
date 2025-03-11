@@ -6,6 +6,7 @@ export async function GET() {
         const videos = await prisma.video.findMany();
         return NextResponse.json(videos);
     } catch (error) {
+        console.error('Error details:', error);
         return NextResponse.json({ error: 'Error fetching videos' }, { status: 500 });
     }
 }
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
         });
         return NextResponse.json(video);
     } catch (error) {
+        console.error('Error details:', error);
         return NextResponse.json({ error: 'Error creating video' }, { status: 500 });
     }
 }

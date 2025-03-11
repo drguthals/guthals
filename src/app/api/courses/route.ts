@@ -6,6 +6,7 @@ export async function GET() {
         const courses = await prisma.course.findMany();
         return NextResponse.json(courses);
     } catch (error) {
+        console.error('Error details:', error);
         return NextResponse.json({ error: 'Error fetching courses' }, { status: 500 });
     }
 }
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
         });
         return NextResponse.json(course);
     } catch (error) {
+        console.error('Error details:', error);
         return NextResponse.json({ error: 'Error creating course' }, { status: 500 });
     }
 }

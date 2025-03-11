@@ -10,14 +10,6 @@ interface ContentBase {
   url: string;
 }
 
-interface Book extends ContentBase {}
-
-interface Video extends ContentBase {}
-
-interface Course extends ContentBase {}
-
-interface Research extends ContentBase {}
-
 const allowedEmails = process.env.NEXT_PUBLIC_ALLOWED_EMAILS?.split(',') || [];
 
 type ContentType = 'Book' | 'Video' | 'Course' | 'Research';
@@ -32,10 +24,10 @@ interface ContentItem {
 
 export default function AdminDashboard() {
     const { data: session, status } = useSession();
-    const [books, setBooks] = useState<Book[]>([]);
-    const [videos, setVideos] = useState<Video[]>([]);
-    const [courses, setCourses] = useState<Course[]>([]);
-    const [research, setResearch] = useState<Research[]>([]);
+    const [books, setBooks] = useState<ContentBase[]>([]);
+    const [videos, setVideos] = useState<ContentBase[]>([]);
+    const [courses, setCourses] = useState<ContentBase[]>([]);
+    const [research, setResearch] = useState<ContentBase[]>([]);
     const [newItem, setNewItem] = useState({
         type: 'Book' as ContentType,
         title: '',
@@ -200,7 +192,7 @@ export default function AdminDashboard() {
       return (
         <div className="flex flex-col items-center justify-center h-screen">
           <h1 className="text-3xl text-red-500">Unauthorized Access</h1>
-          <p className="mt-4">You don't have permission to access this page.</p>
+          <p className="mt-4">You dont have permission to access this page.</p>
           <button onClick={() => signOut()} className="mt-4 p-2 bg-red-500 text-white rounded-lg">
             Sign out
           </button>
