@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id          String   @id @default(cuid())
+  title       String
+  author      String?
+  description String?
+  coverImage  String?
+  url         String?
+  createdAt   DateTime @default(now())
+}
+
+model Research {
+  id          String   @id @default(cuid())
+  title       String
+  abstract    String?
+  authors     String?
+  publication String?
+  year        Int?
+  url         String?
+  createdAt   DateTime @default(now())
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  platform    String?
+  url         String?
+  createdAt   DateTime @default(now())
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  url         String?
+  playlistUrl String?
+  createdAt   DateTime @default(now())
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  content     String?
+  excerpt     String?
+  createdAt   DateTime @default(now())
+  tags        String[]
+  published   Boolean  @default(false)
+}
+
+model User {
+  id       String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  password String?
+}
