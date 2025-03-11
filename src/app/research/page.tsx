@@ -21,8 +21,9 @@ export default async function ResearchPage() {
       publication: true,
       year: true,
       url: true,
+      createdAt: true,
     },
-    orderBy: { year: 'desc' }
+    orderBy: { createdAt: 'desc' }
   });
 
   return (
