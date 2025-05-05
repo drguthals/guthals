@@ -7,21 +7,138 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Book {
+enum LanguageProficiency {
+  NATIVE
+  FLUENT
+  INTERMEDIATE
+  BEGINNER
+}
+
+model Language {
   id          String   @id @default(cuid())
+  code        String   // e.g., "en", "es"
+  name        String   // e.g., "English", "Spanish"
+  proficiency LanguageProficiency
+  author      Author   @relation(fields: [authorId], references: [id])
+  authorId    String
+}
+
+model Author {
+  id          String   @id @default(uuid())
+  name        String
+  email       String?  @unique
+  user        User?    @relation(fields: [userId], references: [id])
+  userId      String?  @unique
+  
+  // Profile info
+  prefix      String?  // Dr, Mr, Mrs
+  suffix      String?  // PhD, MS, Jr
+  pronouns    String?
+  title       String?
+  company     String?
+  bio         String?  @db.Text
+  image       String?
+  timezone    String?
+  website     String?
+  
+  // Author profile links
+  amazonAuthorUrl     String?
+  acmDigitalLibraryUrl String?
+  
+  // Other external profiles stored as JSON
+  externalLinks Json?  // For other platform links
+  
+  // Content associations
+  books       BookAuthor[]
+  videos      VideoAuthor[]
+  courses     CourseAuthor[]
+  research    ResearchAuthor[]
+  blogPosts   BlogPostAuthor[]
+  
+  // Languages
+  languages   Language[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Join tables for many-to-many relationships
+model BookAuthor {
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  String
+  book      Book     @relation(fields: [bookId], references: [id])
+  bookId    String
+  order     Int      // To maintain author order
+  role      String?  // Optional: e.g., "primary", "contributor", etc.
+
+  @@id([authorId, bookId])
+  @@index([bookId])
+}
+
+model VideoAuthor {
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  String
+  video     Video    @relation(fields: [videoId], references: [id])
+  videoId   String
+  order     Int
+  role      String?
+
+  @@id([authorId, videoId])
+  @@index([videoId])
+}
+
+model CourseAuthor {
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  String
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  String
+  order     Int
+  role      String?
+
+  @@id([authorId, courseId])
+  @@index([courseId])
+}
+
+model ResearchAuthor {
+  author     Author    @relation(fields: [authorId], references: [id])
+  authorId   String
+  research   Research  @relation(fields: [researchId], references: [id])
+  researchId String
+  order      Int
+  role       String?
+
+  @@id([authorId, researchId])
+  @@index([researchId])
+}
+
+model BlogPostAuthor {
+  author      Author    @relation(fields: [authorId], references: [id])
+  authorId    String
+  blogPost    BlogPost  @relation(fields: [blogPostId], references: [id])
+  blogPostId  String
+  order       Int
+  role        String?
+
+  @@id([authorId, blogPostId])
+  @@index([blogPostId])
+}
+
+model Book {
+  id          String    @id @default(cuid())
   title       String
-  author      String?
+  authors     BookAuthor[]
   description String?
   coverImage  String?
   url         String?
+  publishDate DateTime?
   createdAt   DateTime @default(now())
 }
 
 model Research {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
+  authors     ResearchAuthor[]
   abstract    String?
-  authors     String?
   publication String?
   year        Int?
   url         String?
@@ -29,8 +146,9 @@ model Research {
 }
 
 model Course {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
+  authors     CourseAuthor[]
   description String?
   platform    String?
   url         String?
@@ -38,17 +156,19 @@ model Course {
 }
 
 model Video {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
+  authors     VideoAuthor[]
   url         String?
   playlistUrl String?
   createdAt   DateTime @default(now())
 }
 
 model BlogPost {
-  id          String   @id @default(cuid())
-  slug        String   @unique
+  id          String    @id @default(cuid())
   title       String
+  authors     BlogPostAuthor[]
+  slug        String   @unique
   content     String?
   excerpt     String?
   createdAt   DateTime @default(now())
@@ -61,4 +181,5 @@ model User {
   name     String
   email    String  @unique
   password String?
+  author   Author?
 }
