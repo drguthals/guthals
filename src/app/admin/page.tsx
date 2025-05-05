@@ -93,7 +93,7 @@ export default function AdminDashboard() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const endpoint = `/api/${newItem.type.toLowerCase()}s${editingItem ? `/${editingItem.id}` : ''}`;
+            const endpoint = `/api/${newItem.type.toLowerCase()}s/${editingItem?.id}`;
             const method = editingItem ? 'PUT' : 'POST';
             
             const response = await fetch(endpoint, {
