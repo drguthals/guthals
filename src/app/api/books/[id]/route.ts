@@ -120,7 +120,7 @@ export async function PUT(
         url: body.url,
         coverImage,
         publishDate,
-        authorId: body.authorId
+        authors: body.authorId
       },
     });
     
