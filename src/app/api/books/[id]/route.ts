@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
 async function getBookDetails(url: string): Promise<{
@@ -79,7 +79,10 @@ async function findOrCreateAuthor(name: string, amazonLink: string | null) {
   return author;
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const id = params.id;
     const body = await request.json();
@@ -117,6 +120,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         url: body.url,
         coverImage,
         publishDate,
+        authorId: body.authorId
       },
     });
     
