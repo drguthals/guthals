@@ -21,6 +21,9 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    appDir: true,
+  },
 }
 
 // Merge MDX config with Next.js config
