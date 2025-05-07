@@ -81,10 +81,10 @@ async function findOrCreateAuthor(name: string, amazonLink: string | null) {
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    const id = params.id;
+    const { id } = context.params;
     const body = await request.json();
     let { coverImage, title, publishDate } = body;
     
@@ -120,11 +120,18 @@ export async function PUT(
         url: body.url,
         coverImage,
         publishDate,
-        authors: body.authorId
+        authors: {
+          connect: [{
+            authorId_bookId: {
+              authorId: body.authorId,
+              bookId: id
+            }
+          }]
+        }
       },
     });
     
-    return NextResponse.json(book);
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error details:', error);
     return NextResponse.json({ error: 'Error updating book' }, { status: 500 });
