@@ -83,6 +83,7 @@ export async function PUT(
   request: NextRequest,
   context: { params: { id: string } }
 ) {
+  console.log('🚀 PUT route hit with ID:', context.params.id)
   try {
     const { id } = context.params;
     const body = await request.json();
