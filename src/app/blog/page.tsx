@@ -10,7 +10,7 @@ export default async function BlogPage() {
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-3xl font-bold">Blog</h1>
-      {posts.map((post) => (
+      {posts?.map((post) => post && (
         <div key={post.slug} className="mt-4">
           <h2 className="text-2xl font-semibold">{post.title}</h2>
           <p className="text-gray-600">{post.excerpt}</p>

@@ -4,7 +4,17 @@ interface Research {
   id: string;
   title: string;
   abstract: string | null;
-  authors: string | null;
+  authors: {
+    role: string | null;
+    authorId: string;
+    order: number;
+    researchId: string;
+    author: {
+      id: string;
+      name: string;
+      image: string | null;
+    };
+  }[];
   publication: string | null;
   year: number | null;
   url: string | null;
@@ -17,11 +27,24 @@ export default async function ResearchPage() {
       id: true,
       title: true,
       abstract: true,
-      authors: true,
       publication: true,
       year: true,
       url: true,
       createdAt: true,
+      authors: {
+        include: {
+          author: {
+            select: {
+              name: true,
+              id: true,
+              image: true,
+            }
+          }
+        },
+        orderBy: {
+          order: 'asc',
+        },
+      },
     },
     orderBy: { createdAt: 'desc' }
   });
@@ -34,7 +57,9 @@ export default async function ResearchPage() {
           <div key={paper.id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-2">{paper.title}</h2>
-              <p className="text-gray-600 mb-2">{paper.authors}</p>
+              <p className="text-gray-600 mb-2">
+                {paper.authors.map((a) => a.author.name).join(', ')}
+              </p>
               <p className="text-gray-500 mb-4">{paper.publication} ({paper.year})</p>
               <p className="text-gray-600 mb-4">{paper.abstract}</p>
               {paper.url && (

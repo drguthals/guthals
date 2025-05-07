@@ -1,4 +1,5 @@
-import prisma from '@/lib/prisma';
+import prisma from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 
 interface Book {
   id: string;
@@ -17,8 +18,33 @@ interface Book {
   createdAt: Date;
 }
 
+type BookWithAuthorJoin = Prisma.BookGetPayload<{
+  select: {
+    id: true;
+    title: true;
+    description: true;
+    coverImage: true;
+    url: true;
+    publishDate: true;
+    createdAt: true;
+    authors: {
+      select: {
+        author: {
+          select: {
+            id: true;
+            name: true;
+            image: true;
+          };
+        };
+        order: true;
+        role: true;
+      };
+    };
+  };
+}>
+
 export default async function BooksPage() {
-  const books = await prisma.book.findMany({
+  const books: BookWithAuthorJoin[] = await prisma.book.findMany({
     select: {
       id: true,
       title: true,
@@ -34,23 +60,28 @@ export default async function BooksPage() {
               id: true,
               name: true,
               image: true,
-            }
+            },
           },
           order: true,
           role: true,
         },
         orderBy: {
-          order: 'asc'
-        }
-      }
+          order: 'asc',
+        },
+      },
     },
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
   });
 
-  // Transform the data to match our component's expectations
-  const booksWithAuthors = books.map((book: Book) => ({
+  const booksWithAuthors: Book[] = books.map((book) => ({
     ...book,
-    authors: book.authors.map((ba: { author: any }) => ba.author)
+    authors: book.authors.map((ba: BookWithAuthorJoin['authors'][number]) => ({
+      id: ba.author.id,
+      name: ba.author.name,
+      image: ba.author.image,
+      amazonAuthorUrl: null,
+      acmDigitalLibraryUrl: null,
+    })),
   }));
 
   // Debug log
