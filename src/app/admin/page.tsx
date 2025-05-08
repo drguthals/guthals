@@ -93,14 +93,20 @@ export default function AdminDashboard() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            
+            const apiPathMap: Record<ContentType, string> = {
+                Book: "books",
+                Video: "videos",
+                Course: "courses",
+                Research: "research", // ✅ no 's'
+              };
+
             const endpoint = editingItem
-                ? `/api/${newItem.type.toLowerCase()}s/${editingItem.id}`
-                : `/api/${newItem.type.toLowerCase()}s`;
+                ? `/api/${apiPathMap[newItem.type]}/${editingItem.id}`
+                : `/api/${apiPathMap[newItem.type]}`;
             const method = editingItem ? 'PUT' : 'POST';
 
             console.log('Submitting to:', endpoint, 'with method:', method);
-            
+
             const response = await fetch(endpoint, {
                 method,
                 headers: {
