@@ -58,7 +58,9 @@ export default async function ResearchPage() {
             <div className="p-6">
               <h2 className="text-xl font-semibold mb-2">{paper.title}</h2>
               <p className="text-gray-600 mb-2">
-                {paper.authors.map((a) => a.author.name).join(', ')}
+                {paper.authors.length > 0
+                  ? paper.authors.map((a) => a.author.name).join(', ')
+                  : 'No authors listed'}
               </p>
               <p className="text-gray-500 mb-4">{paper.publication} ({paper.year})</p>
               <p className="text-gray-600 mb-4">{paper.abstract}</p>
