@@ -48,7 +48,7 @@ export default function Sidebar() {
                     🔬 Research
                 </Link>
                 <Link 
-                    href="/blog" 
+                    href="https://dev.to/drguthals" 
                     className={`block p-2 rounded ${isActive('/blog')}`}
                 >
                     ✍️ Blog
